@@ -1,0 +1,195 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+SA <- read.csv('SouthAfrica.csv')
+Indo <- read.csv('Indonesia.csv')
+Nepal <- read.csv('Nepal.csv')
+
+library(tidyverse)
+library(car)
+source('shorter_summary.R')
+```
+
+## Recodes
+
+### Indonesia
+
+```{r}
+Indo$i17_01 <- car::recode(Indo$i17_02_02, "1 = 'Yes';
+                              2 = 'No';
+                              else = NA")
+
+Indo$i17_02_01 <- car::recode(Indo$i17_02_01, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_02_02 <- car::recode(Indo$i17_02_02, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_02_03 <- car::recode(Indo$i17_02_03, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_03 <- car::recode(Indo$i17_03, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_04 <- car::recode(Indo$i17_04, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_05 <- car::recode(Indo$i17_05, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_06 <- car::recode(Indo$i17_06, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_07 <- car::recode(Indo$i17_07, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_08 <- car::recode(Indo$i17_08, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_09 <- car::recode(Indo$i17_09, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_10 <- car::recode(Indo$i17_10, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+
+Indo$i17_11 <- car::recode(Indo$i17_11, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA")
+```
+
+```{r}
+Indo_vars <- names(Indo)[grepl('i17', names(Indo))]
+Indo_titles <- c('Are you willing to answer questions in this section?',
+                        'Insulted, belittled or humiliated',
+                        'Scared or intimidated',
+                        'Threatened you or someone you care about',
+                        'How often has this behaviour occurred in the past 12 months?',
+                        'Hit, slapped, shoved, pushed or punched',
+                        'How often physically hit, slapped, shoved, pushed or punched?',
+                        'Beaten, kicked, burnt or choked',
+                        'How often beaten, kicked, burnt or choked?',
+                        'Attacked with weapon',
+                        'How often attacked with weapon?',
+                        'Sexual assault',
+                        'How often sexually assaulted?'
+                        )
+```
+
+```{r}
+Nepal_vars <- names(Nepal %>% select(continue:expect_safe))
+Nepal[Nepal_vars] <- map_df(Nepal[Nepal_vars], ~car::recode(.x, "1 = 'Yes';
+                                                            2 = 'No';
+                                                            3 = 'Refused to answer';
+                                                            else = NA"))
+Nepal$Gender <- car::recode(Nepal$gender, "1 = 'Male';
+                            2 = 'Female';
+                            else = NA")
+
+Nepal$Age <- car::recode(Nepal$age, "16:24 = '16-24';
+                            25:59 = '25-59';
+                            60:115 = '60+';
+                            else = NA")
+
+Nepal_titles <- c('Are you willing to answer questions in this section?',
+                        'Insulted, belittled, intimidated',
+                        'Insulted, belittled, intimidated more than once?',
+                        'Physically hit',
+                        'Physically hit more than once?',
+                        'Attacked with weapon',
+                        'Attacked with weapon more than once?',
+                        'Sexual assault',
+                        'Sexually assaulted more than once?',
+                        'Expect to be safe from violence in next 12 months'
+                        )
+```
+
+
+
+
+
+## Gender
+
+### Indonesia
+
+```{r}
+summarise_multiple_y(Indo_vars, 'Gender', data1 = Indo, titles = Indo_titles)
+```
+
+### Nepal
+
+```{r}
+summarise_multiple_y(Nepal_vars, 'Gender', data1 = Nepal, titles = Nepal_titles)
+```
+
+## Age
+
+### Indonesia
+
+```{r}
+summarise_multiple_y(Indo_gender_vars, 'Age', data1 = Indo, titles = Indo_gender_titles)
+```
+
+```{r}
+summarise_multiple_y(Nepal_vars, 'Age', data1 = Nepal, titles = Nepal_titles)
+```
+
+## Rural / urban
+
+
+
+## Gender x age
+### Indonesia
+
+```{r}
+summarise_multiple_yz(Indo_gender_vars, 'Age', 'Gender', data1 = Indo, titles = Indo_gender_titles)
+```
+
+### Nepal
+
+```{r}
+summarise_multiple_yz(Nepal_vars, 'Age', 'Gender', data1 = Nepal, titles = Nepal_titles)
+```
+
