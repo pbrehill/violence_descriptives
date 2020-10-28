@@ -75,7 +75,7 @@ summarise_item_age <- function(x, data = data, recode_string = NULL) {
   
   outplot <- ggplot(graph_data, aes(x = x_recode, y = prop, fill = Gender_ind)) +
     geom_col(position = 'dodge') +
-    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
+    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
     labs(caption = paste0('Chi-squared p value = ', format(round(chisq.test(x = data$Gender_ind, y = data$x_recode)$p.value, 3), 
                                                            nsmall = 3),
                           '\nn = ', sum(!is.na(data$x_recode)), '\nn female = ', sum(!is.na(females$x_recode)), '\nn male = ', sum(!is.na(males$x_recode))))
@@ -116,7 +116,7 @@ summarise_dim_scores <- function (score1, score2, df = data, factorise = TRUE, b
       ggplot(aes(x = fact_score1, y = prop, fill = Gender_ind)) +
       geom_col(position = 'dodge') +
       scale_x_discrete(limits = rev(levels(data$fact_score))) +
-      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
+      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
       facet_grid(cols = vars(fact_score2))
     
   } else if (by_province) {
@@ -131,7 +131,7 @@ summarise_dim_scores <- function (score1, score2, df = data, factorise = TRUE, b
       ggplot(aes(x = fact_score1, y = prop, fill = Gender_ind)) +
       geom_col(position = 'dodge') +
       scale_x_discrete(limits = rev(levels(data$fact_score))) +
-      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
+      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
       facet_grid(cols = vars(Province_ind), rows = vars(fact_score2))
   }
 }
@@ -163,7 +163,7 @@ summarise_items <- function(x, y, recode_string1 = "", recode_string2 = "", by_p
       mutate(prop = prop.table(n)) %>%
       ggplot(aes(x = x_recode, y = prop, fill = Gender_ind)) +
       geom_col(position = 'dodge') +
-      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
+      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
       facet_grid(cols = vars(y_recode))
   } else if (by_province) {
     data %>%
@@ -176,7 +176,7 @@ summarise_items <- function(x, y, recode_string1 = "", recode_string2 = "", by_p
       mutate(prop = prop.table(n)) %>%
       ggplot(aes(x = x_recode, y = prop, fill = Gender_ind)) +
       geom_col(position = 'dodge') +
-      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
+      geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
       facet_grid(cols = vars(Province_ind), rows = vars(y_recode))
   }
 }
@@ -229,7 +229,7 @@ summarise_no_gender <- function(x, data = data, recode_string = NULL) {
     mutate(prop = prop.table(n)) %>%
     ggplot(aes(x = x_recode, y = prop)) +
     geom_col(position = 'dodge') +
-    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
+    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
     labs(caption = '\nn = ', sum(!is.na(data$x_recode)))
 }
 
@@ -346,9 +346,8 @@ y_summary <- function (x, y, data) {
   
   outplot <- ggplot(graph_data, aes(x = x_recode, y = prop, fill = y_recode)) +
     geom_col(position = 'dodge') +
-    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
-    labs(caption = paste0('Chi-squared p value = ', format(round(chisq.test(x = data$y_recode, y = data$x_recode)$p.value, 3), 
-                                                           nsmall = 3),
+    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
+    labs(caption = paste0(
                           '\nn = ', sum(!is.na(data$x_recode))))
   
   outplot
@@ -390,11 +389,12 @@ yz_summary <- function (x, y, z, data) {
   
   outplot <- ggplot(graph_data, aes(x = x_recode, y = prop, fill = y_recode)) +
     geom_col(position = 'dodge') +
-    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 2), vjust = -1)) +
-    labs(caption = paste0('Chi-squared p value = ', format(round(chisq.test(x = data$y_recode, y = data$x_recode)$p.value, 3), 
-                                                           nsmall = 3),
+    geom_text(size = 3, position = position_dodge(width = 1), aes(label = scales::percent(prop, 1), vjust = -1)) +
+    labs(caption = paste0(
                           '\nn = ', sum(!is.na(data$x_recode)))) +
     facet_wrap(vars(z_recode))
+  
+    outplot <- outplot + coord_flip()
   
   outplot
 }

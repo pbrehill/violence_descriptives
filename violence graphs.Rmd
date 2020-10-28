@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r}
@@ -18,90 +20,237 @@ source('shorter_summary.R')
 ### Indonesia
 
 ```{r}
-Indo$i17_01 <- car::recode(Indo$i17_02_02, "1 = 'Yes';
+SA$i17_01 <- car::recode(SA$i17_01, "1 = 'Yes';
                               2 = 'No';
-                              else = NA")
+                              else = NA", 
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No'))
+
+SA$i17_02_01 <- car::recode(SA$i17_02_01, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                            as.factor = TRUE,
+                            levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
+
+SA$i17_02_02 <- car::recode(SA$i17_02_02, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                            as.factor = TRUE,
+                            levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
+
+SA$i17_02_03 <- car::recode(SA$i17_02_03, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                            as.factor = TRUE,
+                            levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
+
+SA$i17_03 <- car::recode(SA$i17_03, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
+
+SA$i17_04 <- car::recode(SA$i17_04, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
+
+SA$i17_05 <- car::recode(SA$i17_05, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
+
+SA$i17_06 <- car::recode(SA$i17_06, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
+
+SA$i17_07 <- car::recode(SA$i17_07, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
+
+SA$i17_08 <- car::recode(SA$i17_08, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
+
+SA$i17_09 <- car::recode(SA$i17_09, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
+
+SA$i17_10 <- car::recode(SA$i17_10, "1 = 'Yes';
+                              2 = 'No';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
+
+SA$i17_11 <- car::recode(SA$i17_11, "1 = 'Once';
+                              2 = 'A few times';
+                              3 = 'Many times';
+                              97 = 'Refused to answer';
+                              98 = 'Privacy interrupted';
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
+```
+
+
+```{r}
+Indo$i17_01 <- car::recode(Indo$i17_01, "1 = 'Yes';
+                              2 = 'No';
+                              else = NA", 
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No'))
 
 Indo$i17_02_01 <- car::recode(Indo$i17_02_01, "1 = 'Yes';
                               2 = 'No';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                            as.factor = TRUE,
+                            levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
 
 Indo$i17_02_02 <- car::recode(Indo$i17_02_02, "1 = 'Yes';
                               2 = 'No';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                            as.factor = TRUE,
+                            levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
 
 Indo$i17_02_03 <- car::recode(Indo$i17_02_03, "1 = 'Yes';
                               2 = 'No';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                            as.factor = TRUE,
+                            levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
 
 Indo$i17_03 <- car::recode(Indo$i17_03, "1 = 'Once';
                               2 = 'A few times';
                               3 = 'Many times';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
 
 Indo$i17_04 <- car::recode(Indo$i17_04, "1 = 'Yes';
                               2 = 'No';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
 
 Indo$i17_05 <- car::recode(Indo$i17_05, "1 = 'Once';
                               2 = 'A few times';
                               3 = 'Many times';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
 
 Indo$i17_06 <- car::recode(Indo$i17_06, "1 = 'Yes';
                               2 = 'No';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
 
 Indo$i17_07 <- car::recode(Indo$i17_07, "1 = 'Once';
                               2 = 'A few times';
                               3 = 'Many times';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
 
 Indo$i17_08 <- car::recode(Indo$i17_08, "1 = 'Yes';
                               2 = 'No';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
 
 Indo$i17_09 <- car::recode(Indo$i17_09, "1 = 'Once';
                               2 = 'A few times';
                               3 = 'Many times';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
 
 Indo$i17_10 <- car::recode(Indo$i17_10, "1 = 'Yes';
                               2 = 'No';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Yes', 'No', 'Refused to answer', 'Privacy interrupted'))
 
 Indo$i17_11 <- car::recode(Indo$i17_11, "1 = 'Once';
                               2 = 'A few times';
                               3 = 'Many times';
                               97 = 'Refused to answer';
                               98 = 'Privacy interrupted';
-                              else = NA")
+                              else = NA",
+                         as.factor = TRUE,
+                         levels = c('Once', 'A few times', 'Many times', 'Refused to answer',
+                                    'Privacy interrupted'))
 ```
 
+
 ```{r}
-Indo_vars <- names(Indo)[grepl('i17', names(Indo))]
+Indo_vars <- names(Indo)[grepl('i17', names(Indo))] %>% sort()
 Indo_titles <- c('Are you willing to answer questions in this section?',
                         'Insulted, belittled or humiliated',
                         'Scared or intimidated',
@@ -123,15 +272,17 @@ Nepal_vars <- names(Nepal %>% select(continue:expect_safe))
 Nepal[Nepal_vars] <- map_df(Nepal[Nepal_vars], ~car::recode(.x, "1 = 'Yes';
                                                             2 = 'No';
                                                             3 = 'Refused to answer';
-                                                            else = NA"))
+                                                            else = NA",
+                                                            as.factor = TRUE,
+                                                            levels = c('Yes', 'No', 'Refused to answer')))
 Nepal$Gender <- car::recode(Nepal$gender, "1 = 'Male';
                             2 = 'Female';
-                            else = NA")
+                            else = NA", as.factor = TRUE)
 
 Nepal$Age <- car::recode(Nepal$age, "16:24 = '16-24';
                             25:59 = '25-59';
                             60:115 = '60+';
-                            else = NA")
+                            else = NA", as.factor = TRUE)
 
 Nepal_titles <- c('Are you willing to answer questions in this section?',
                         'Insulted, belittled, intimidated',
@@ -144,6 +295,35 @@ Nepal_titles <- c('Are you willing to answer questions in this section?',
                         'Sexually assaulted more than once?',
                         'Expect to be safe from violence in next 12 months'
                         )
+```
+
+
+
+```{r}
+SA_vars <- names(SA)[grepl('i17', names(SA))]
+SA_titles <- c('Are you willing to answer questions in this section?',
+                        'Insulted, belittled or humiliated',
+                        'Scared or intimidated',
+                        'Threatened you or someone you care about',
+                        'How often has this behaviour occurred in the past 12 months?',
+                        'Hit, slapped, shoved, pushed or punched',
+                        'How often physically hit, slapped, shoved, pushed or punched?',
+                        'Beaten, kicked, burnt or choked',
+                        'How often beaten, kicked, burnt or choked?',
+                        'Attacked with weapon',
+                        'How often attacked with weapon?',
+                        'Sexual assault',
+                        'How often sexually assaulted?'
+                        )
+
+SA$Gender <- car::recode(SA$gender, "1 = 'Male';
+                            2 = 'Female';
+                            else = NA", as.factor = TRUE)
+
+SA$Age <- car::recode(SA$a_52, "16:24 = '16-24';
+                            25:59 = '25-59';
+                            60:115 = '60+';
+                            else = NA", as.factor = TRUE)
 ```
 
 
@@ -164,32 +344,49 @@ summarise_multiple_y(Indo_vars, 'Gender', data1 = Indo, titles = Indo_titles)
 summarise_multiple_y(Nepal_vars, 'Gender', data1 = Nepal, titles = Nepal_titles)
 ```
 
+### South Africa
+
+```{r}
+summarise_multiple_y(SA_vars, 'Gender', data1 = SA, titles = SA_titles)
+```
+
 ## Age
 
 ### Indonesia
 
 ```{r}
-summarise_multiple_y(Indo_gender_vars, 'Age', data1 = Indo, titles = Indo_gender_titles)
+summarise_multiple_y(Indo_vars, 'Age', data1 = Indo, titles = Indo_titles)
 ```
+
+### Nepal
 
 ```{r}
 summarise_multiple_y(Nepal_vars, 'Age', data1 = Nepal, titles = Nepal_titles)
 ```
 
-## Rural / urban
+### South Africa
 
+```{r}
+summarise_multiple_y(SA_vars, 'Age', data1 = SA, titles = SA_titles)
+```
 
 
 ## Gender x age
 ### Indonesia
 
 ```{r}
-summarise_multiple_yz(Indo_gender_vars, 'Age', 'Gender', data1 = Indo, titles = Indo_gender_titles)
+summarise_multiple_yz(Indo_vars, 'Age', 'Gender', data1 = Indo, titles = Indo_titles)
 ```
 
 ### Nepal
 
 ```{r}
 summarise_multiple_yz(Nepal_vars, 'Age', 'Gender', data1 = Nepal, titles = Nepal_titles)
+```
+
+### SA
+
+```{r}
+summarise_multiple_yz(SA_vars, 'Age', 'Gender', data1 = SA, titles = SA_titles)
 ```
 
